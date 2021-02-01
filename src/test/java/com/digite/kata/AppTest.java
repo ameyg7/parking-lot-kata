@@ -3,7 +3,10 @@ package com.digite.kata;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.
@@ -63,5 +66,31 @@ public class AppTest {
         parkingLot.park("KA-01-HH-1235", "Blue");
         assertEquals(2, parkingLot.getSlotNumberByRegistrationNumber("KA-01-HH-1235"));
 
+    }
+
+    @Test
+    public void testCarRegistrationNumberOfSameColour() {
+        parkingLot.park("KA-01-HH-1231", "White");
+        parkingLot.park("KA-01-HH-1232", "Red");
+        parkingLot.park("KA-01-HH-1233", "White");
+        parkingLot.park("KA-01-HH-1234", "Yellow");
+
+        ArrayList<String> actual = parkingLot.getRegistrationNumbersByColor("White");
+        assertEquals(2, actual.size());
+        assertTrue(actual.contains("KA-01-HH-1231"));
+        assertTrue(actual.contains("KA-01-HH-1233"));
+    }
+
+    @Test
+    public void testCarSlotNumberOfSameColour() {
+        parkingLot.park("KA-01-HH-1231", "White");
+        parkingLot.park("KA-01-HH-1232", "Red");
+        parkingLot.park("KA-01-HH-1233", "White");
+        parkingLot.park("KA-01-HH-1234", "Yellow");
+
+        ArrayList<Integer> actual = parkingLot.getSlotNumbersByColor("White");
+        assertEquals(2, actual.size());
+        assertTrue( actual.contains(1) );
+        assertTrue( actual.contains(3) );
     }
 }
